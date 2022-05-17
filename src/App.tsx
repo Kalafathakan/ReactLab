@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div>
-      <Header title='Grocery list' item={24} />
+      <Header title='Grocery list' totalItems={groceryList.length} />
       {/* <Grocery name='apple' quantity={2} />
       <Grocery name='orange' quantity={4} />
       <Grocery name='cucumber' quantity={3} /> */}

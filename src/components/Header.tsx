@@ -1,6 +1,6 @@
 type HeaderProps = {
   title: string;
-  item: number;
+  totalItems: number;
 };
 
 // interface  HeaderProps{
@@ -8,12 +8,12 @@ type HeaderProps = {
 //   item: number;
 // }
 
-const Header = ({ title, item }: HeaderProps) => {
+const Header = ({ title, totalItems }: HeaderProps) => {
   // console.log(props);
   return (
     <header>
       <h1>{title}</h1>
-      <span>Items: {item}</span>
+      <span>Items: {totalItems}</span>
     </header>
   );
 };
