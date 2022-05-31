@@ -9,7 +9,7 @@ import About from './pages/About';
 import GroceryApp from './GroceryApp';
 import Footer from './pages/Footer';
 import Navigation from './pages/Navigation';
-
+import JsonAPI from './components/JsonAPI';
 const App = () => {
   const [lang, setLang] = useState('english');
   return (
@@ -21,6 +21,7 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='news/:newid' element={<News />} />
             <Route path='about' element={<About />} />
+            <Route path='posts' element={<JsonAPI />} />
             <Route path='grocery' element={<GroceryApp />} />
           </Routes>
           <Footer />
