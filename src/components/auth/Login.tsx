@@ -1,8 +1,13 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import decode from 'jwt-decode';
+import AuthContext, { AuthContextType } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const auth = useContext(AuthContext) as AuthContextType;
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -45,6 +50,21 @@ const Login = () => {
         email: email,
         password: password,
       };
+
+      try {
+        const response = await axios.post(
+          'http://localhost:5000/api/auth',
+          data,
+          config
+        );
+        console.log(response.data);
+        localStorage.setItem('token', response.data.token);
+        auth.login();
+        navigate('/posts');
+      } catch (err: any) {
+        console.log(err);
+        setError(err.response.data.errors || 'something went wrong');
+      }
     }
   };
 
