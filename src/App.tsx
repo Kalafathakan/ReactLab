@@ -12,6 +12,9 @@ import Navigation from './pages/Navigation';
 import JsonAPI from './components/JsonAPI';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Todos from './components/todoapp/Todos';
+import AddTodo from './components/todoapp/AddTodo';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import AuthContext from './context/AuthContext';
 
@@ -37,7 +40,10 @@ const App = () => {
               <Route path='news/:newid' element={<News />} />
               <Route path='about' element={<About />} />
               <Route path='posts' element={<JsonAPI />} />
-
+              <Route element={<ProtectedRoute />}>
+                <Route path='todos' element={<Todos />} />
+                <Route path='addtodo' element={<AddTodo />} />
+              </Route>
               <Route path='login' element={<Login />} />
               <Route path='Register' element={<Register />} />
             </Routes>

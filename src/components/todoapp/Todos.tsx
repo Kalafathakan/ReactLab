@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import AuthContext, { AuthContextType } from '../../context/AuthContext';
 import axios from 'axios';
 
 type JsonTodo = {
@@ -18,6 +19,8 @@ type TodoType = {
   user: number;
 };
 const Todos = () => {
+  const auth = useContext(AuthContext) as AuthContextType;
+  console.log(auth);
   const [todos, setTodos] = useState<TodoType[]>([]);
 
   useEffect(() => {
@@ -33,12 +36,25 @@ const Todos = () => {
           'x-auth-token': token,
         },
       };
+
+      const response = await axios.get(
+        'http://localhost:5000/api/todos/',
+        config
+      );
+      setTodos(response.data);
+      console.log(response.data);
     } catch (err) {
       // Handle Error Here
       console.error(err);
     }
   };
-  return <div className='page-style'></div>;
+  return (
+    <div className='page-style'>
+      {todos.map((todo) => (
+        <Todo todo={todo} key={todo._id} />
+      ))}
+    </div>
+  );
 };
 
 const Todo = (props: JsonTodo) => {

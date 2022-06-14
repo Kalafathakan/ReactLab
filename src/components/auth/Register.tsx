@@ -1,8 +1,13 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import decode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import AuthContext, { AuthContextType } from '../../context/AuthContext';
 
 const Register = () => {
+  const auth = useContext(AuthContext) as AuthContextType;
+  const navigate = useNavigate();
   const [formData2, setFormData] = useState({
     name: '',
     email: '',
@@ -29,6 +34,21 @@ const Register = () => {
       email: email,
       password: password,
     };
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/users',
+        data,
+        config
+      );
+      localStorage.setItem('token', response.data.token);
+
+      let decodeddata = decode(response.data.token);
+      console.log(decodeddata);
+      auth.login();
+      navigate('/posts');
+    } catch (e: any) {
+      console.log('error ', e.message);
+    }
   };
   return (
     <>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddTodo = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -27,7 +29,14 @@ const AddTodo = () => {
       description,
     };
     try {
+      const response = await axios.post(
+        'http://localhost:5000/api/todos',
+        data,
+        config
+      );
+
       console.log('task added');
+      navigate('/todos');
     } catch (e: any) {
       console.log(e.response.data.errors);
     }
